@@ -10,14 +10,52 @@ internal sealed class DataGridRow : Grid
         set => SetValue(DataGridProperty, value);
     }
 
+    public object ItemSource
+    {
+        get => (object)GetValue(ItemSourceProperty);
+        set => SetValue(ItemSourceProperty, value);
+    }
+
     public int Index { get; set; }
 
     #endregion properties
 
     #region Bindable Properties
+    public static readonly BindableProperty ItemSourceProperty =
+        BindableProperty.Create(nameof(ItemSource), typeof(object),
+            typeof(DataGridRow),
+            null,
+            BindingMode.OneTime, propertyChanged: ItemSourceSet);
+
+    private static void ItemSourceSet(BindableObject bindable, object oldValue, object newValue)
+    {
+        var content = (DataGridRow)bindable;
+        if(newValue!=null)
+        {
+            content.CreateView();
+        }
+    }
 
     public static readonly BindableProperty DataGridProperty =
-        BindableProperty.Create(nameof(DataGrid), typeof(CollectionView), typeof(DataGridRow), null, BindingMode.OneTime);
+        BindableProperty.Create(nameof(DataGrid), typeof(CollectionView), 
+            typeof(DataGridRow), 
+            null,
+            BindingMode.OneTime, propertyChanged: OnGridChanged);
+
+    private static void OnGridChanged(BindableObject bindable, object oldValue, object newValue)
+    {
+        var content = (DataGridRow)bindable;
+        //if (content != null)
+        //{
+        //    var grid = (DataGrid)newValue;
+        //    grid.OnReload += content.Reload;
+        //}
+    }
+
+    //private void Reload(object sender, EventArgs e)
+    //{
+    //    CreateView();
+    //}
 
     #endregion Bindable Properties
 
@@ -45,6 +83,7 @@ internal sealed class DataGridRow : Grid
         Children.Add(cell);
         _index++;
     }
+
 
     /// <inheritdoc/>
     protected override void OnBindingContextChanged()

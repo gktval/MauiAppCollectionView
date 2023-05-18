@@ -1,16 +1,21 @@
 using System.Collections;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.ComponentModel;
 
 namespace MauiAppCollectionView;
 
 [XamlCompilation(XamlCompilationOptions.Compile)]
-public partial class DataGrid
+public partial class DataGrid : INotifyPropertyChanged
 {
+    public event EventHandler OnReload;
+
 
     public DataGrid()
     {
         InitializeComponent();
+
+        BindingContext = this;
     }
 
     internal void Reload()
@@ -19,6 +24,7 @@ public partial class DataGrid
         {
             InternalItems = new List<object>(_internalItems);
         }
+        OnReload?.Invoke(this, EventArgs.Empty);
     }
 
 
@@ -80,4 +86,8 @@ public partial class DataGrid
         }
     }
 
+    private void _collectionView_Loaded(object sender, EventArgs e)
+    {
+
+    }
 }

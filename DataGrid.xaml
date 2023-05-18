@@ -5,16 +5,10 @@
              x:Class="MauiAppCollectionView.DataGrid"
              x:Name="self">
 
-
-    <CollectionView x:Name="_collectionView" WidthRequest="{Binding WidthRequest, Source={Reference self}}"
-                            ItemSizingStrategy="{OnPlatform Android=MeasureAllItems, Default=MeasureFirstItem}" >
+    <CollectionView x:Name="_collectionView">
         <CollectionView.ItemTemplate>
             <DataTemplate>
-                <!--<StackLayout>
-                    <Label Text="{Binding .}"/>
-                </StackLayout>-->
-                <local:DataGridRow DataGrid="{Reference self}"
-                                           HeightRequest="{Binding RowHeight, Source={Reference self}, Mode=OneTime}" />
+                    <local:DataGridRow ItemSource="{Binding .}"/>
             </DataTemplate>
         </CollectionView.ItemTemplate>
     </CollectionView>

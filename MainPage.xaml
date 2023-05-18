@@ -5,8 +5,22 @@
              x:Class="MauiAppCollectionView.MainPage">
 
     <StackLayout>
-        <Button Text="Reload" Clicked="Button_Clicked"></Button>
-        <local:DataGrid x:Name="gridView" ItemsSource="{Binding DataSource}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+        <!--<Button Text="Reload" Clicked="Button_Clicked"></Button>-->
+
+        <!--<CollectionView x:Name="_collectionView">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                        <local:DataGridRow ItemSource="{Binding .}"/>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>-->
+        <Label Text="Grid 1"/>
+        <local:DataGrid x:Name="grid1">
+
+        </local:DataGrid>
+        <BoxView Style="{StaticResource HRule}"/>
+        <Label Text="Grid 2"/>
+        <local:DataGrid x:Name="grid2" ItemsSource="{Binding DataSource}">
 
         </local:DataGrid>
 

@@ -14,15 +14,11 @@ public partial class MainPage : ContentPage
             "GHI",
             "JKL"
         };
+        grid1.ItemsSource = DataSource;
 
         BindingContext = this;
 
-        gridView.Reload();
-    }
-
-    private void Button_Clicked(object sender, EventArgs e)
-    {
-        gridView.Reload();
+        grid1.Reload();
     }
 }
 
