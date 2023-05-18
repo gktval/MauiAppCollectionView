@@ -18,7 +18,7 @@ public partial class MainPage : ContentPage
 
         BindingContext = this;
 
-        grid1.Reload();
+        OnPropertyChanged(nameof(DataSource));
     }
 }
 
